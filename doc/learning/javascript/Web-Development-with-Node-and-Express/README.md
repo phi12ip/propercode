@@ -2,6 +2,7 @@
 
 > by Ethan Brown Published by O'Reilly Media, Inc., 2019 
 
+
 ## Table of Contents
 
 1. [Introducing Express][1]
@@ -54,3 +55,6 @@
 [21]: ./going-live.md
 [22]: ./maintenance.md
 [23]: ./additional-resources.md
+
+
+> These notes are for personal referene purposes only, and are not intended to replace the book or infringe on any intellectual property rights. All materal in this directory is either directly pulled from the given chapters, or paraphrased.
