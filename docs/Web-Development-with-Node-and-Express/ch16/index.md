@@ -1,3 +1,8 @@
-[Table of Contents](README.md)
+[Prev][prev]
+|
+[Table of Contents](../)
+|
+[Next][next]
 
-# Single Page Applications
+[prev]: ../ch15
+[next]: ../ch17

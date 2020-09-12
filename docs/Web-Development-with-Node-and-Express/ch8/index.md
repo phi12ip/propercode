@@ -1,4 +1,11 @@
-[Table of Contents](README.md)
+[Prev][prev]
+|
+[Table of Contents](../)
+|
+[Next][next]
+
+[prev]: ../ch7
+[next]: ../ch9
 
 # Form Handling
 
@@ -6,4 +13,6 @@ The usual way you collect information from your users is to use HTML forms. Whet
 
 ## Sending Client Data to the Server
 
-The two options for sending client data to the server are the querystring and the request body
+The two options for sending client data to the server are the querystring and the request body.
+
+If you're 

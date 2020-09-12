@@ -1,4 +1,9 @@
-[Table of Contents](README.md)
+
+[Table of Contents](../)
+|
+[Next][next]
+
+[next]: ../ch2
 
 # Introducing Express
 

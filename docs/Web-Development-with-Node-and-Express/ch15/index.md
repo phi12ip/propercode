@@ -4,5 +4,5 @@
 |
 [Next][next]
 
-[prev]: ../ch16
-[next]: ../ch18
+[prev]: ../ch13
+[next]: ../ch15

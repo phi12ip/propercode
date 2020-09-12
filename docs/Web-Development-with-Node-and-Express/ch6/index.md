@@ -1,4 +1,11 @@
-[Table of Contents](README.md)
+[Prev][prev]
+|
+[Table of Contents](../)
+|
+[Next][next]
+
+[prev]: ../ch5
+[next]: ../ch7
 
 # Request and Response Object
 
