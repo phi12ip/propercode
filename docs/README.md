@@ -1,6 +1,6 @@
 # Documentation
 
-## Books
+## Book notes
 
 * [Web Development with Node and Express][1]
 
