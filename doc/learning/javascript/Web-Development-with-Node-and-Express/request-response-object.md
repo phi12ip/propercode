@@ -232,3 +232,223 @@ res.locals, res.render(view, [locals], callback)
 
 ## Getting More Information
 
+If you need information that isn’t documented, sometimes you have to dive into the Express source. I encourage you to do this! You’ll probably find that it’s a lot less intimidating than you might think. Here’s a quick roadmap to where you’ll find things in the Express source:
+
+
+lib/application.js
+
+* The main Express interface. If you want to understand how middleware is linked in or how views are rendered, this is the place to look.
+
+lib/express.js
+
+* A relatively short file that primarily provides the createApplication function (the default export of this file), which creates an Express application instance.
+
+lib/request.js
+
+* Extends Node’s http.IncomingMessage object to provide a robust request object. For information about all the request object properties and methods, this is where to look.
+
+lib/response.js
+
+* Extends Node’s http.ServerResponse object to provide the response object. For information about response object properties and methods, this is where to look.
+
+lib/router/route.js
+
+* Provides basic routing support. While routing is central to your app, this file is less than 230 lines long; you’ll find that it’s quite simple and elegant.
+
+As you dig into the Express source code, you’ll probably want to refer to the Node documentation, especially the section on the HTTP module.
+
+## Boiling It Down
+
+When you’re rendering content, you’ll be using res.render most often, which renders views within layouts, providing maximum value. Occasionally, you may want to write a quick test page, so you might use res.send if you just want a test page. You may use req.query to get querystring values, req.session to get session values, or req.cookie/req.signedCookies to get cookies. Example 6-1 to Example 6-8 demonstrate common content rendering tasks.
+
+``` js
+// basic usage
+app.get('/about', (req, res) => {
+  res.render('about')
+})
+```
+
+Response codes other than 200:
+
+``` js
+app.get('/error', (req, res) => {
+  res.status(500)
+  res.render('error')
+})
+
+// or on one line...
+
+app.get('/error', (req, res) => res.status(500).render('error'))
+```
+
+Passing content to a view:
+
+``` js
+app.get('/greeting', (req, res) => {
+  res.render('greeting', {
+    message: 'Hello esteemed programmer!',
+    style: req.query.style,
+    userid: req.cookies.userid,
+    username: req.session.username
+  })
+})
+```
+
+Rendering a view without a layout:
+
+``` js 
+// the following layout doesn't have a layout file, so
+// views/no-layout.handlebars must include all necessary HTML
+app.get('/no-layout', (req, res) =>
+  res.render('no-layout', { layout: null })
+)
+```
+
+Rendering a view with a custom layout:
+
+``` js
+// the layout file views/layouts/custom.handlebars will be used
+app.get('/custom-layout', (req, res) =>
+  res.render('custom-layout', { layout: 'custom' })
+)
+```
+
+Rendering plain text output:
+
+``` js
+app.get('/text', (req, res) => {
+  res.type('text/plain')
+  res.send('this is a test')
+})
+```
+
+Error handler: 
+
+``` js
+// this should appear AFTER all of your routes
+// note that even if you don't need the "next" function, it must be
+// included for Express to recognize this as an error handler
+app.use((err, req, res, next) => {
+  console.error('** SERVER ERROR: ' + err.message)
+  res.status(500).render('08-error',
+    { message: "you shouldn't have clicked that!" })
+})
+```
+
+404 handler:
+
+``` js
+// this should appear AFTER all of your routes
+app.use((req, res) =>
+  res.status(404).render('404')
+)
+```
+
+## Processing Forms
+
+When processing a form the information will usually be in the `req.body`.
+
+To process forms, you need to apply the `bodyParser` middleware:
+
+``` js
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: false}))
+```
+
+> We’ll learn more about body parser middleware in Chapter 8.
+
+Basic for processing: 
+
+``` js
+app.post('/process-contact', (req, res) => {
+  console.log(`received contact from ${req.body.name} <${req.body.email}>`)
+  res.redirect(303, '10-thank-you')
+})
+```
+
+More robust form processing:
+
+``` js
+app.post('/process-contact', (req, res) => {
+  try {
+    // here's where we would try to save contact to database or other
+    // persistence mechanism...for now, we'll just simulate an error
+    if(req.body.simulateError) throw new Error("error saving contact!")
+    console.log(`contact from ${req.body.name} <${req.body.email}>`)
+    res.format({
+      'text/html': () => res.redirect(303, '/thank-you'),
+      'application/json': () => res.json({ success: true }),
+    })
+  } catch(err) {
+    // here's where we would handle any persistence failures
+    console.error(`error processing contact from ${req.body.name} ` +
+      `<${req.body.email}>`)
+    res.format({
+      'text/html': () =>  res.redirect(303, '/contact-error'),
+      'application/json': () => res.status(500).json({
+        error: 'error saving contact information' }),
+    })
+  }
+})
+```
+
+## Providing an API
+
+When you’re providing an API, much like processing forms, the parameters will usually be in req.query, though you can also use req.body. 
+
+What’s different about APIs is that you’ll usually be returning JSON, XML, or even plain text, instead of HTML, and you’ll often be using less common HTTP methods like PUT, POST, and DELETE.
+
+``` js
+const tours = [
+  { id: 0, name: 'Hood River', price: 99.99 },
+  { id: 1, name: 'Oregon Coast', price: 149.95 },
+]
+
+// -- snip --
+
+app.get('/api/tours', (req, res) => res.json(tours))
+```
+
+More complex enpoint that returns JSON, XML, oe text
+
+``` js
+app.get('/api/tours', (req, res) => {
+  const toursXml = '<?xml version="1.0"?><tours>' +
+    tours.map(p =>
+      `<tour price="${p.price}" id="${p.id}">${p.name}</tour>`
+    ).join('') + '</tours>'
+  const toursText = tours.map(p =>
+      `${p.id}: ${p.name} (${p.price})`
+    ).join('\n')
+  res.format({
+    'application/json': () => res.json(tours),
+    'application/xml': () => res.type('application/xml').send(toursXml),
+    'text/xml': () => res.type('text/xml').send(toursXml),
+    'text/plain': () => res.type('text/plain').send(toursXml),
+  })
+})
+```
+
+PUT endpoint updates a product and returns JSON.
+
+``` js
+app.put('/api/tour/:id', (req, res) => {
+  const p = tours.find(p => p.id === parseInt(req.params.id))
+  if(!p) return res.status(404).json({ error: 'No such tour exists' })
+  if(req.body.name) p.name = req.body.name
+  if(req.body.price) p.price = req.body.price
+  res.json({ success: true })
+})
+```
+
+DELETE endpoint for deleting:
+
+``` js
+app.delete('/api/tour/:id', (req, res) => {
+  const idx = tours.findIndex(tour => tour.id === parseInt(req.params.id))
+  if(idx < 0) return res.json({ error: 'No such tour exists.' })
+  tours.splice(idx, 1)
+  res.json({ success: true })
+})
+```
+
