@@ -32,29 +32,29 @@
 
 
 <!--- Links --->
-[1]: ./introducting-express.md
-[2]: ./getting-started-with-node.md
-[3]: ./saving-time-with-express.md
-[4]: ./tidying-up.md
-[5]: ./quality-assurance.md
-[6]: ./request-response-object.md
-[7]: ./templating-with-handlebars.md
-[8]: ./form-handling.md
-[9]: ./cookies-and-sessions.md
-[10]: ./middleware.md
-[11]: ./sending-email.md
-[12]: ./production-concerns.md
-[13]: ./persistence.md
-[14]: ./routing.md
-[15]: ./rest-apis-and-json.md
-[16]: ./single-page-applications.md
-[17]: ./static-content.md
-[18]: ./security.md
-[19]: ./integrating-with-third-party-apps.md
-[20]: ./debugging.md
-[21]: ./going-live.md
-[22]: ./maintenance.md
-[23]: ./additional-resources.md
+[1]: ./ch1/
+[2]: ./ch2/
+[3]: ./ch3/
+[4]: ./ch4/
+[5]: ./ch5/
+[6]: ./ch6/
+[7]: ./ch7/
+[8]: ./ch8/
+[9]: ./ch9/
+[10]: ./ch10/
+[11]: ./ch11/
+[12]: ./ch12/
+[13]: ./ch13/
+[14]: ./ch14/
+[15]: ./ch15/
+[16]: ./ch16/
+[17]: ./ch17/
+[18]: ./ch18/
+[19]: ./ch19/
+[20]: ./ch20/
+[21]: ./ch21/
+[22]: ./ch22/
+[23]: ./ch23/
 
 
 > These notes are for personal referene purposes only, and are not intended to replace the book or infringe on any intellectual property rights. All materal in this directory is either directly pulled from the given chapters, or paraphrased.
