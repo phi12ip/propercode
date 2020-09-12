@@ -16,6 +16,8 @@
 9. [Cookies and Sessions][9]
 10. [Middleware][10]
 11. [Sending Email][11]
+
+<!---
 12. [Production Concerns][12]
 13. [Persistence][13]
 14. [Routing][14]
@@ -29,7 +31,7 @@
 22. [Maintenance][22]
 23. [Addtional Resources][23]
 
-
+--->
 
 <!--- Links --->
 [1]: ./ch1/
