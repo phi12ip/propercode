@@ -1,3 +1,9 @@
+[Prev][prev]
+|
+[Table of Contents](README.md)
+|
+[Next][next]
+
 # Templating with Handlebars
 
 Templating is a technique for constructing and formatting content sent to the user. 

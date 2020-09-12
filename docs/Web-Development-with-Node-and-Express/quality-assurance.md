@@ -1,3 +1,5 @@
+[Table of Contents](README.md)
+
 # Quality Assurance
 
 In web dev, quality can be broken down into four dimensions:

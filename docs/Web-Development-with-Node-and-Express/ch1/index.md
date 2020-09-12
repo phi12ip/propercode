@@ -1,3 +1,5 @@
+[Table of Contents](README.md)
+
 # Introducing Express
 
 ## The JavaScript Revolution

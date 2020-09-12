@@ -1,3 +1,5 @@
+[Table of Contents](README.md)
+
 # Saving Time with Express
 
 ## Scaffolding

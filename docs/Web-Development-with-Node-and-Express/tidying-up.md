@@ -1,3 +1,5 @@
+[Table of Contents](README.md)
+
 # Tidying Up
 
 ## File and Directory Structure
