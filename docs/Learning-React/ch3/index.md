@@ -6,3 +6,5 @@
 
 [prev]: ../ch2
 [next]: ../ch4
+
+# Functional Programming with Javascript

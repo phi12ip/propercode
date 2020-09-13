@@ -6,3 +6,5 @@
 
 [prev]: ../ch6
 [next]: ../ch8
+
+# Enhacing Components with Hooks
