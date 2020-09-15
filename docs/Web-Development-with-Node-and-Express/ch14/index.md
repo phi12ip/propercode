@@ -105,7 +105,7 @@ express.Router() essentially creates a new instance of the Express router. You c
 > express.Router is also useful for partitioning your routes so that you can link in many route handlers at once. See the Express routing documentation for more information.
 
 
-# Route Handlers are Middleware
+## Route Handlers are Middleware
 
 ``` js
 app.get('/fifty-fifty', (req, res, next) => {
@@ -251,4 +251,111 @@ Don’t overlook automatic view-based route handlers
 
 
 ## Declaring Routes in a Module
+
+The first step to organizing our routes is getting them all into their own module. 
+
+There are multiple ways to do this. 
+
+One way:
+
+Create a file called routes.js and move all of our existing routes into it:
+
+``` js
+module.exports = app => {
+
+  app.get('/', (req,res) => app.render('home'))
+
+  //...
+
+}
+```
+
+If we just cut and paste, we’ll probably run into some problems. For example, if we have inline route handlers that use variables or methods not available in the new context, those references will now be broken. We could add the necessary imports, but hold off on that. We’ll be moving the handlers into their own module soon, and we’ll solve the problem then.
+
+So how do we link our routes in? Simple: in meadowlark.js, we simply import our routes:
+
+``` js
+require('./routes')(app)
+```
+
+
+Or we could be more explicit and add a named import (which we name addRoutes to better reflect its nature as a function; we could also name the file this way if we wanted):
+
+``` js
+const addRoutes = require('./routes')
+
+addRoutes(app)
+```
+
+
+## Grouping Handlers Logically
+
+To meet our first guiding principle (use named functions for route handlers), we’ll need somewhere to put those handlers. One rather extreme option is to have a separate JavaScript file for every handler. It’s hard for me to imagine a situation in which this approach would have benefit. It’s better to somehow group related functionality together. That makes it easier not only to leverage shared functionality, but also to make changes in related methods.
+
+For now, let’s group our functionality into separate files: handlers/main.js, where we’ll put the home page handler, the “about” handler, and generally any handler that doesn’t have another logical home; handlers/vacations.js, where vacation-related handlers will go; and so on.
+
+Consider handlers/main.js:
+
+``` js
+const fortune = require('../lib/fortune')
+
+exports.home = (req, res) => res.render('home')
+
+exports.about = (req, res) => {
+  const fortune = fortune.getFortune()
+  res.render('about', { fortune })
+}
+
+//...
+```
+
+Now let’s modify routes.js to make use of this:
+
+``` js
+const main = require('./handlers/main')
+
+module.exports = function(app) {
+
+  app.get('/', main.home)
+  app.get('/about', main.about)
+  //...
+
+}
+```
+
+This satisfies all of our guiding principles. /routes.js is very straightforward. It’s easy to see at a glance what routes are in your site and where they are being handled. We’ve also left ourselves plenty of room to grow. We can group related functionality in as many different files as we need. And if routes.js ever gets unwieldy, we can use the same technique again and pass the app object on to another module that will in turn register more routes (though that is starting to veer into the “overcomplicated” territory—make sure you can really justify an approach that complicated!).
+
+
+## Automatically Rendering Views
+
+If you ever find yourself wishing for the days of old where you could just put an HTML file in a directory and—presto!—your website would serve it, then you’re not alone. 
+
+If your website is content-heavy without a lot of functionality, you may find it a needless hassle to add a route for every view. Fortunately, we can get around this problem.
+
+Let’s say you want to add the file views/foo.handlebars and just magically have it available on the route /foo. Let’s see how we might do that. In our application file, right before the 404 handler, add the following middleware (ch14/06-auto-views.js in the companion repo):
+
+``` js
+const autoViews = {}
+const fs = require('fs')
+const { promisify } = require('util')
+const fileExists = promisify(fs.exists)
+
+app.use(async (req, res, next) => {
+  const path = req.path.toLowerCase()
+  // check cache; if it's there, render the view
+  if(autoViews[path]) return res.render(autoViews[path])
+  // if it's not in the cache, see if there's
+  // a .handlebars file that matches
+  if(await fileExists(__dirname + '/views' + path + '.handlebars')) {
+    autoViews[path] = path.replace(/^\//, '')
+    return res.render(autoViews[path])
+  }
+  // no view found; pass on to 404 handler
+  next()
+})
+```
+
+Now we can just add a .handlebars file to the view directory and have it magically render on the appropriate path. Note that regular routes will circumvent this mechanism (because we placed the automatic view handler after all other routes), so if you have a route that renders a different view for the route /foo, that will take precedence.
+
+Note that this approach will run into problems if you delete a view that had been visited; it will have been added to the autoViews object, so subsequent views will try to render it even though it’s been deleted, resulting in an error. The problem could be solved by wrapping the rendering in a try/catch block and removing the view from autoViews when an error is discovered; I will leave this enhancement as a reader’s exercise.
 
