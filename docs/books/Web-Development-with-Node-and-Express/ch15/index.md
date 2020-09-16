@@ -209,4 +209,3 @@ app.delete('/api/vacation/:sku', handlers.requestDeleteVacationApi)
 I am leaving requestDeleteVacationsApi as a reader’s exercise, mainly because this functionality could be implemented so many different ways. The simplest approach would be to just modify our vacation schema to have “delete requested” fields that just get updated with the email and notes when the API is called. A more sophisticated approach would be to have a separate table, like a moderation queue, that records the deletion requests separately, referencing the vacation in question, which would better lend itself to administrator use.
 
 Assuming you set up Jest correctly in Chapter 5, you should just be able to run npm test, and the API tests will be picked up (Jest will look for any file that ends in .test.js). You’ll see we have three passing tests and one failing one: the incomplete DELETE /api/vacation/:sku.
-
