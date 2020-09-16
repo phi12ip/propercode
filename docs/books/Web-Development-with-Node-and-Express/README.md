@@ -21,10 +21,9 @@
 14. [Routing][14]
 15. [REST APIs and JSON][15]
 16. [Single Page Applications][16]
+17. [Static Content][17]
 
 <!---
-
-17. [Static Content][17]
 18. [Security][18]
 19. [Integrating with Third Party Apps][19]
 20. [Debugging][20]
