@@ -155,3 +155,58 @@ describe('API tests', () => {
 })
 ```
 
+Our test suite starts off with a helper function _fetch, which handles some common housekeeping. It will JSON encode the body if it isn’t already, add the appropriate headers, and throw an appropriate error if the response status code isn’t in the 200s.
+
+We have a single test for each of our API endpoints. I’m not suggesting that these tests are robust or complete; even with this simple API, we could (and should) have several tests for each endpoint. What we have here is more of a starting point that illustrates techniques for testing an API.
+
+There are a couple of important characteristics of these tests that deserve mention. One is that we are relying on the API being already started and running on port 3000. A more robust test suite would find an open port, start the API on that port as part of its setup, and stop it when all the tests have run. Second, this test relies on data already being present in our API. For example, the first test expects there to be at least one vacation, and for that vacation to have a name and a price. In a real application, you may not be able to make these assumptions (for example, you may start with no data, and you may want to test for allowable missing data). Again, a more robust testing framework would have a way of setting and resetting the initial data in the API so you could start from a known state every time. For example, you might have scripts that set up and seed a test database, attach the API to it, and tear it down for every test run. As we saw in Chapter 5, testing is a large and complicated topic, and we can only scratch the surface here.
+
+The first test covers our GET /api/vacations endpoint. It fetches all of the vacations, validates that there is at least one, and checks the first one to see if it has a name and a price. We could also conceivably test other data properties. I’ll leave it as a reader’s exercise to think about which properties are most important to test.
+
+The second test covers our GET /api/vacation/:sku endpoint. Since we don’t have consistent test data, we start by fetching all of the vacations and getting the SKU from the first one so we can test this endpoint.
+
+Our last two tests cover our POST /api/vacation/:sku/notify-when-in-season and DELETE /api/vacation/:sku endpoints. Unfortunately, with our current API and testing framework, we can do very little to verify that these endpoints are doing what they are supposed to, so we default to invoking them and trusting the API is doing the right thing when it doesn’t return an error. If we wanted to make these tests more robust, we would have to either add endpoints that allow us to verify the actions (for example, an endpoint that determined if a given email was registered for a specific vacation) or somehow give the tests “backdoor” access to our database.
+
+If you run the tests now, they will time out and fail…because we haven’t implemented our API or even started our server. So let’s get started!
+
+
+## Using Express to Provide an API
+
+We’ll start by creating the handlers in lib/handlers.js (we could create a separate file, such as lib/api.js, but let’s keep things simple for now):
+
+``` js
+exports.getVacationsApi = async (req, res) => {
+  const vacations = await db.getVacations({ available: true })
+  res.json(vacations)
+}
+
+exports.getVacationBySkuApi = async (req, res) => {
+  const vacation = await db.getVacationBySku(req.params.sku)
+  res.json(vacation)
+}
+
+exports.addVacationInSeasonListenerApi = async (req, res) => {
+  await db.addVacationInSeasonListener(req.params.sku, req.body.email)
+  res.json({ message: 'success' })
+}
+
+exports.requestDeleteVacationApi = async (req, res) => {
+  const { email, notes } = req.body
+  res.status(500).json({ message: 'not yet implemented' })
+}
+```
+
+Then we hook up the API in meadowlark.js:
+
+```js
+app.get('/api/vacations', handlers.getVacationsApi)
+app.get('/api/vacation/:sku', handlers.getVacationBySkuApi)
+app.post('/api/vacation/:sku/notify-when-in-season',
+  handlers.addVacationInSeasonListenerApi)
+app.delete('/api/vacation/:sku', handlers.requestDeleteVacationApi)
+```
+
+I am leaving requestDeleteVacationsApi as a reader’s exercise, mainly because this functionality could be implemented so many different ways. The simplest approach would be to just modify our vacation schema to have “delete requested” fields that just get updated with the email and notes when the API is called. A more sophisticated approach would be to have a separate table, like a moderation queue, that records the deletion requests separately, referencing the vacation in question, which would better lend itself to administrator use.
+
+Assuming you set up Jest correctly in Chapter 5, you should just be able to run npm test, and the API tests will be picked up (Jest will look for any file that ends in .test.js). You’ll see we have three passing tests and one failing one: the incomplete DELETE /api/vacation/:sku.
+
