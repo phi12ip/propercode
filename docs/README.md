@@ -15,6 +15,12 @@ Git & Github
 Markdown
 * [Daring Fireball - Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
 
+SQL
+* [Understanding tricky Joins and Multitable Updates](https://build.affinity.co/understanding-tricky-joins-and-multi-table-updates-in-postgresql-using-boolean-algebra-7b329606ca45)
+
+WebRtc
+* [WebRTC Go implementation](https://github.com/pion/webrtc)
+
 <!--- Link --->
 [1]: ./books/Web-Development-with-Node-and-Express/
 [2]: ./books/Learning-React/
