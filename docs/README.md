@@ -12,6 +12,8 @@
 Git & Github
 * [Resources to learn Git](http://try.github.io/)
 
+Markdown
+* [Daring Fireball - Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
 
 <!--- Link --->
 [1]: ./books/Web-Development-with-Node-and-Express/
