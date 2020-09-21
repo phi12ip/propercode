@@ -12,6 +12,9 @@
 Git & Github
 * [Resources to learn Git](http://try.github.io/)
 
+## Docker
+* [Defined named volumes in Docker Compose file](http://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/)
+
 ## Javascript
 
 ### Express
@@ -32,7 +35,12 @@ Git & Github
 ### Seqeulize
 * [Sequelize docs](https://sequelize.org/master/)
 * [Sequelize api docs](https://sequelize.org/master/identifiers.html)
+* [Creating Sequelize Associations with the Sequelize CLI](https://levelup.gitconnected.com/creating-sequelize-associations-with-the-sequelize-cli-tool-d83caa902233)
+
+
+with express:
 * [Express sequelize example](https://github.com/sequelize/express-example)
+
 
 Markdown
 * [Daring Fireball - Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
