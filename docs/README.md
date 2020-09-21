@@ -14,6 +14,7 @@ Git & Github
 
 ## Docker
 * [Defined named volumes in Docker Compose file](http://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/)
+* [Docker and Nginx for SSL/HTTPS](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 
 ## Javascript
 
