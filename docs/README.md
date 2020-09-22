@@ -40,7 +40,7 @@ Jest
 Passport
 
 * [Passport Local strategy](http://www.passportjs.org/packages/passport-local/)
-* [Passport Local implementaion]((https://github.com/jaredhanson/passport-local/)
+* [Passport Local implementaion](https://github.com/jaredhanson/passport-local/)
 * [Passport - express 4.x local example](https://github.com/passport/express-4.x-local-example/blob/master/server.js)
 
 
