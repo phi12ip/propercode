@@ -27,8 +27,9 @@ Docker
 
 * [Using Docker and nodemon for live changes](https://medium.com/better-programming/docker-in-development-with-nodemon-d500366e74df)
 
-Express
+Node/Express
 
+* [Reading and writing csv files](https://stackabuse.com/reading-and-writing-csv-files-with-node-js/)
 * [Web Development with Node and React Repo](https://github.com/EthanRBrown/web-development-with-node-and-express-2e)
 
 Jest
