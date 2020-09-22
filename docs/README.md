@@ -21,6 +21,10 @@
 
 ## Javascript
 
+Docker
+
+* [Using Docker and nodemon for live changes](https://medium.com/better-programming/docker-in-development-with-nodemon-d500366e74df)
+
 Express
 
 * [Web Development with Node and React Repo](https://github.com/EthanRBrown/web-development-with-node-and-express-2e)
