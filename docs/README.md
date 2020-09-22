@@ -57,6 +57,10 @@ Seqeulize
 
 * [Daring Fireball - Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
 
+## Nginx 
+
+* [Nginx - Docker hub](https://hub.docker.com/_/nginx)
+
 ## SQL
 * [Understanding tricky Joins and Multitable Updates](https://build.affinity.co/understanding-tricky-joins-and-multi-table-updates-in-postgresql-using-boolean-algebra-7b329606ca45)
 
