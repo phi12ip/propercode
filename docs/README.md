@@ -1,15 +1,12 @@
-# Documentation
-
-## Book notes
+# Book notes
 
 * [Web Development with Node and Express][1] <-- almost done ( click on this one (:  )
 * [Learning React][2] <-- in progress
 * [Learning Javescript][3] <-- not started
 
-
-## Resources
-
 ---
+
+# Resources
 
 ## Docker
 * [Defined named volumes in Docker Compose file](http://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/)
