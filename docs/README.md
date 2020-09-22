@@ -50,7 +50,6 @@ Seqeulize
 * [Sequelize docs](https://sequelize.org/master/)
 * [Sequelize api docs](https://sequelize.org/master/identifiers.html)
 * [Creating Sequelize Associations with the Sequelize CLI](https://levelup.gitconnected.com/creating-sequelize-associations-with-the-sequelize-cli-tool-d83caa902233)
-
 * [Express sequelize example](https://github.com/sequelize/express-example)
 
 
