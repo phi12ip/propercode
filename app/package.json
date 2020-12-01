@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/propercode",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -13,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build ../docs",
+    "build": "react-scripts build && rm -rf ../docs && mv build ../docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
