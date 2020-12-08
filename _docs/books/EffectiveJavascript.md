@@ -11,7 +11,6 @@ Things to Remember:
 - Always test strict code in environments that perform the strict-mode checks.
 - Beware of concatenating scripts that differ in their expectations about strict mode.
 
-
 ### Item 2: Understand JavaScript’s Floating-Point Numbers
 
 Things to Remember:
@@ -31,3 +30,9 @@ Things to Remember:
 - Objects with valueOf methods should implement a toString method that provides a string representation of the number produced by valueOf.
 - Use typeof or comparison to undefined rather than truthiness to test for undefined values.
 
+### Item 4: Prefer Primitives to Object Wrappers
+
+Things to Remember:
+
+- Object wrappers for primitive types do not have the same behavior as their primitive values when compared for equality.
+- Getting and setting properties on primitives implicitly creates object wrappers.
