@@ -118,3 +118,39 @@ Things to Remember
 - Use immediately invoked function expressions (IIFEs) to create local scopes.
 - Be aware of the cases where wrapping a block in an IIFE can change its behavior.
 
+### Item 14: Beware of Unportable Scoping of Named Function Expressions
+
+Things to Remember
+
+- Use named function expressions to improve stack traces in Error objects and debuggers.
+- Beware of pollution of function expression scope with Object.prototype in ES3 and buggy JavaScript environments.
+- Beware of hoisting and duplicate allocation of named function expressions in buggy JavaScript environments.
+- Consider avoiding named function expressions or removing them before shipping.
+- If you are shipping in properly implemented ES5 environments, you’ve got nothing to worry about.
+
+### Item 15: Beware of Unportable Scoping of Block-Local Function Declarations
+
+Things to Remember
+
+- Always keep function declarations at the outermost level of a program or a containing function to avoid unportable behavior.
+- Use var declarations with conditional assignment instead of conditional function declarations.
+
+### Item 16: Avoid Creating Local Variables with eval
+
+Things to Remember
+
+- Avoid creating variables with eval that pollute the caller’s scope.
+- If eval code might create global variables, wrap the call in a nested function to prevent scope pollution.
+
+### Item 17: Prefer Indirect eval to Direct eval
+
+Things to Remember
+
+- Wrap eval in a sequence expression with a useless literal to force the use of indirect eval.
+- Prefer indirect eval to direct eval whenever possible.
+
+
+## 3. Working with Functions
+
+### Item 18: Understand the Difference between Function, Method, and Constructor Calls
+
