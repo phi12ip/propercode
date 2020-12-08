@@ -154,3 +154,164 @@ Things to Remember
 
 ### Item 18: Understand the Difference between Function, Method, and Constructor Calls
 
+Things to Remember
+
+- Method calls provide the object in which the method property is looked up as their receiver.
+- Function calls provide the global object (or undefined for strict functions) as their receiver. Calling methods with function call syntax is rarely useful.
+- Constructors are called with new and receive a fresh object as their receiver.
+
+### Item 19: Get Comfortable Using Higher-Order Functions
+
+Things to Remember
+
+- Higher-order functions are functions that take other functions as arguments or return functions as their result.
+- Familiarize yourself with higher-order functions in existing libraries.
+- Learn to detect common coding patterns that can be replaced by higher-order functions.
+
+### Item 20: Use call to Call Methods with a Custom Receiver
+
+Things to Remember
+
+- Use the call method to call a function with a custom receiver.
+- Use the call method for calling methods that may not exist on a given object.
+- Use the call method for defining higher-order functions that allow clients to provide a receiver for the callback.
+
+### Item 21: Use apply to Call Functions with Different Numbers of Arguments
+
+Things to Remember
+
+- Use the apply method to call variadic functions with a computed array of arguments.
+- Use the first argument of apply to provide a receiver for variadic methods.
+
+### Item 22: Use arguments to Create Variadic Functions
+
+Things to Remember
+
+- Use the implicit arguments object to implement variable-arity functions.
+- Consider providing additional fixed-arity versions of the variadic functions you provide so that your consumers don’t need to use the apply method.
+
+### Item 23: Never Modify the arguments Object
+
+Things to Remember
+
+- Never modify the arguments object.
+- Copy the arguments object to a real array using [].slice.call(arguments) before modifying it.
+
+### Item 24: Use a Variable to Save a Reference to arguments
+
+Things to Remember
+
+- Be aware of the function nesting level when referring to arguments.
+- Bind an explicitly scoped reference to arguments in order to refer to it from nested functions.
+
+### Item 25: Use bind to Extract Methods with a Fixed Receiver
+
+``` js
+var source = ["867", "-", "5309"];
+source.forEach(function(s) {
+    buffer.add(s);
+});
+buffer.join(); // "867-5309"
+```
+
+```js 
+var source = ["867", "-", "5309"];
+source.forEach(buffer.add.bind(buffer));
+buffer.join(); // "867-5309"
+```
+
+Things to Remember
+
+- Beware that extracting a method does not bind the method’s receiver to its object.
+- When passing an object’s method to a higher-order function, use an anonymous function to call the method on the appropriate receiver.
+- Use bind as a shorthand for creating a function bound to the appropriate receiver.
+
+### Item 26: Use bind to Curry Functions
+
+The technique of binding a function to a subset of its arguments is known as currying, named after the logician Haskell Curry, who popularized the technique in mathematics. Currying can be a succinct way to implement function delegation with less boilerplate than explicit wrapper functions.
+
+Things to Remember
+
+- Use bind to curry a function, that is, to create a delegating function with a fixed subset of the required arguments.
+- Pass null or undefined as the receiver argument to curry a function that ignores its receiver.
+
+### Item 27: Prefer Closures to Strings for Encapsulating Code
+
+When in doubt, use a function. Strings are a much less flexible representation of code for one very important reason: They are not closures.
+
+Things to Remember
+
+- Never include local references in strings when sending them to APIs that execute them with eval.
+- Prefer APIs that accept functions to call rather than strings to eval.
+
+### Item 28: Avoid Relying on the toString Method of Functions
+
+Things to Remember
+
+- JavaScript engines are not required to produce accurate reflections of function source code via toString.
+- Never rely on precise details of function source, since different engines may produce different results from toString.
+- The results of toString do not expose the values of local variables stored in a closure.
+- In general, avoid using toString on functions.
+
+### Item 29: Avoid Nonstandard Stack Inspection Properties
+
+The best policy is to avoid stack inspection altogether. If your reason for inspecting the stack is solely for debugging, it’s much more reliable to use an interactive debugger.
+
+Things to Remember
+
+- Avoid the nonstandard arguments.caller and arguments.callee, because they are not reliably portable.
+- Avoid the nonstandard caller property of functions, because it does not reliably contain complete information about the stack.
+
+## 4. Objects and Prototypes
+
+### Item 30: Understand the Difference between prototype, getPrototypeOf, and __proto__
+
+Things to Remember
+
+- C.prototype determines the prototype of objects created by new C().
+- Object.getPrototypeOf(obj) is the standard ES5 function for retrieving the prototype of an object.
+- obj.__proto__ is a nonstandard mechanism for retrieving the prototype of an object.
+- A class is a design pattern consisting of a constructor function and an associated prototype.
+
+### Item 31: Prefer Object.getPrototypeOf to __proto__
+
+Things to Remember
+
+- Prefer the standards-compliant Object.getPrototypeOf to the nonstandard __proto__ property.
+- Implement Object.getPrototypeOf in non-ES5 environments that support __proto__.
+
+### Item 32: Never Modify __proto__
+
+Things to Remember
+
+- Never modify an object’s __proto__ property.
+- Use Object.create to provide a custom prototype for new objects.
+
+### Item 33: Make Your Constructors new-Agnostic
+
+Things to Remember
+
+- Make a constructor agnostic to its caller’s syntax by reinvoking itself with new or with Object.create.
+- Document clearly when a function expects to be called with new.
+
+### Item 34: Store Methods on Prototypes
+
+Things to Remember
+
+- Storing methods on instance objects creates multiple copies of the functions, one per instance object.
+- Prefer storing methods on prototypes over storing them on instance objects.
+
+### Item 35: Use Closures to Store Private Data
+
+Things to Remember
+
+- Closure variables are private, accessible only to local references.
+- Use local variables as private data to enforce information hiding within methods.
+
+### Item 36: Store Instance State Only on Instance Objects
+
+Things to Remember
+
+- Mutable data can be problematic when shared, and prototypes are shared between all their instances.
+
+- Store mutable per-instance state on instance objects.
