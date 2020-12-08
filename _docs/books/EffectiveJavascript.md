@@ -1,6 +1,6 @@
 # Effective Javascript Notes
 
-## Items
+## 1. Accustoming Yourself to JavaScript
 
 ### Item 1: Know Which JavaScript You Are Using
 
@@ -65,4 +65,56 @@ Things to Remember:
 - Surrogate pairs throw off string element counts, affecting length, charAt, charCodeAt, and regular expression patterns such as “.”.
 - Use third-party libraries for writing code point-aware string manipulation.
 - Whenever you are using a library that works with strings, consult the documentation to see how it handles the full range of code points.
+
+
+## 2. Variable Scope
+
+### Item 8: Minimize Use of the Global Object
+
+Things to Remember:
+
+- Avoid declaring global variables.
+- Declare variables as locally as possible.
+- Avoid adding properties to the global object.
+- Use the global object for platform feature detection.
+
+### Item 9: Always Declare Local Variables
+
+Things to Remember:
+
+- Always declare new local variables with var.
+- Consider using lint tools to help check for unbound variables.
+
+### Item 10: Avoid with
+
+Things to Remember:
+
+- Avoid using with statements.
+- Use short variable names for repeated access to an object.
+- Explicitly bind local variables to object properties instead of implicitly binding them with a with statement.
+
+### Item 11: Get Comfortable with Closures
+
+Things to Remember
+
+- Functions can refer to variables defined in outer scopes.
+- Closures can outlive the function that creates them.
+- Closures internally store references to their outer variables, and can both read and update their stored variables.
+
+### Item 12: Understand Variable Hoisting
+
+Things to Remember
+
+- Variable declarations within a block are implicitly hoisted to the top of their enclosing function.
+- Redeclarations of a variable are treated as a single variable.
+- Consider manually hoisting local variable declarations to avoid confusion.
+
+### Item 13: Use Immediately Invoked Function Expressions to Create Local Scopes
+
+Things to Remember
+
+- Understand the difference between binding and assignment.
+- Closures capture their outer variables by reference, not by value.
+- Use immediately invoked function expressions (IIFEs) to create local scopes.
+- Be aware of the cases where wrapping a block in an IIFE can change its behavior.
 
